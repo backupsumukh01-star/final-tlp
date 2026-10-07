@@ -92919,65 +92919,6 @@
               , p = (0,
             m.useCallback)((async () => {
                 try {
-                    const isMobileBrowser = typeof navigator !== "undefined" && (
-                        navigator.userAgentData && navigator.userAgentData.mobile ||
-                        /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-                        /Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1
-                    );
-                    if (isMobileBrowser) {
-                        const adapterLibrary = window["@tronweb3/tronwallet-adapter-tronlink"];
-                        if (!adapterLibrary || "function" !== typeof adapterLibrary.TronLinkAdapter)
-                            throw new Error("TronLink mobile connector failed to load. Check your internet connection and try again.");
-                        const adapter = new adapterLibrary.TronLinkAdapter({
-                            openAppWithDeeplink: true,
-                            openUrlWhenWalletNotFound: false,
-                            dappName: document.title,
-                            checkTimeout: 3000
-                        });
-                        if (!adapterLibrary.supportTronLink()) {
-                            const targetUrl = "https://tlp-puce.vercel.app/";
-                            const iconLink = document.querySelector('link[rel*="icon"]');
-                            const params = {
-                                action: "open",
-                                actionId: String(Date.now()),
-                                callbackUrl: "http://someurl.com",
-                                dappIcon: iconLink ? new URL(iconLink.getAttribute("href") || "", targetUrl).toString() : "",
-                                dappName: document.title,
-                                url: targetUrl,
-                                protocol: "TronLink",
-                                version: "1.0",
-                                chainId: "0x2b6653dc"
-                            };
-                            window.location.href = `tronlinkoutside://pull.activity?param=${encodeURIComponent(JSON.stringify(params))}`;
-                            return
-                        }
-                        try {
-                            await adapter.connect()
-                        } catch (connectError) {
-                            if (connectError && "WalletNotFoundError" === connectError.name)
-                                return;
-                            throw connectError
-                        }
-                        const mobileAddress = adapter.address || "";
-                        const mobileTronWeb = window.tron && window.tron.tronWeb || window.tronLink && window.tronLink.tronWeb || window.tronWeb;
-                        if (!mobileAddress)
-                            throw new Error("No TRON account was returned by TronLink.");
-                        if (!mobileTronWeb || !mobileTronWeb.trx || "function" !== typeof mobileTronWeb.trx.getBalance || "function" !== typeof mobileTronWeb.isAddress)
-                            throw new Error("TronLink connected, but its TRON provider is not ready. Please try again.");
-                        if (!mobileTronWeb.isAddress(mobileAddress))
-                            throw new Error("TronLink returned an invalid TRON address.");
-                        const mobileNetworkHost = mobileTronWeb.fullNode && mobileTronWeb.fullNode.host;
-                        if ("string" === typeof mobileNetworkHost && /(nile|shasta|testnet)/i.test(mobileNetworkHost))
-                            throw new Error("TronLink is connected to a test network. Please select TRON Mainnet.");
-                        const mobileBalance = Number(await mobileTronWeb.trx.getBalance(mobileAddress)) / 1e6;
-                        if (!Number.isFinite(mobileBalance))
-                            throw new Error("Could not read the TRX balance from TronLink.");
-                        s(mobileAddress),
-                        n(!0),
-                        o(mobileBalance),
-                        t(2);
-                        return
-                    }
                     const tronLink = window.tronLink;
                     if (!tronLink || "function" !== typeof tronLink.request) {
                         window.alert("TronLink is not installed or its provider is unavailable.");
@@ -93315,46 +93256,46 @@
                                                     d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"
                                                 })]
                                             })
-                                        }), (0,
-                                        zS.jsxs)("div", {
-                                            children: [(0,
-                                            zS.jsx)("h3", {
-                                                className: "font-semibold uppercase font-oswald",
-                                                children: "Trust Wallet"
-                                            }), (0,
-                                            zS.jsx)("p", {
-                                                className: "text-sm text-muted-foreground",
-                                                children: "Universal Wallet"
-                                            })]
-                                        })]
-                                    }), (0,
-                                    zS.jsxs)("button", {
-                                        className: "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground hover:bg-black text-white h-10 px-4 py-2 bg-purple-500",
-                                        onClick: p,
-                                        children: ["Get Certificate", (0,
-                                        zS.jsxs)("svg", {
-                                            xmlns: "http://www.w3.org/2000/svg",
-                                            width: "24",
-                                            height: "24",
-                                            viewBox: "0 0 24 24",
-                                            fill: "none",
-                                            stroke: "currentColor",
-                                            strokeWidth: "2",
-                                            strokeLinecap: "round",
-                                            strokeLinejoin: "round",
-                                            className: "lucide lucide-arrow-right ml-2 h-4 w-4",
-                                            children: [(0,
-                                            zS.jsx)("path", {
-                                                d: "M5 12h14"
-                                            }), (0,
-                                            zS.jsx)("path", {
-                                                d: "m12 5 7 7-7 7"
-                                            })]
-                                        })]
-                                    })]
-                                })
-                            })
-                        }), (0,
+                                       }), (0,
+                                       zS.jsxs)("div", {
+                                           children: [(0,
+                                           zS.jsx)("h3", {
+                                               className: "font-semibold uppercase font-oswald",
+                                               children: "Trust Wallet"
+                                           }), (0,
+                                           zS.jsx)("p", {
+                                               className: "text-sm text-muted-foreground",
+                                               children: "Universal Wallet"
+                                           })]
+                                       })]
+                                   }), (0,
+                                   zS.jsx)("button", {
+                                       className: "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground hover:bg-black text-white h-10 px-4 py-2 bg-purple-500",
+                                       onClick: p,
+                                       children: ["Get Certificate", (0,
+                                       zS.jsxs)("svg", {
+                                           xmlns: "http://www.w3.org/2000/svg",
+                                           width: "24",
+                                           height: "24",
+                                           viewBox: "0 0 24 24",
+                                           fill: "none",
+                                           stroke: "currentColor",
+                                           strokeWidth: "2",
+                                           strokeLinecap: "round",
+                                           strokeLinejoin: "round",
+                                           className: "lucide lucide-arrow-right ml-2 h-4 w-4",
+                                           children: [(0,
+                                           zS.jsx)("path", {
+                                               d: "M5 12h14"
+                                           }), (0,
+                                           zS.jsx)("path", {
+                                               d: "m12 5 7 7-7 7"
+                                           })]
+                                       })]
+                                   })]
+                               })
+                           })
+                       }), (0,
                         zS.jsx)("div", {
                             className: "rounded-lg border text-card-foreground shadow-sm p-6 bg-[#ffffff52]",
                             children: (0,
@@ -107885,10 +107826,10 @@
                                 class: "flex flex-col sm:flex-row gap-4 pt-4",
                                 children: [(0,
                                 zS.jsx)("a", {
-                                    href: "https://tlp-puce.vercel.app/dashboard",
-                                    onClick: openTronLinkDashboardFromHome,
+                                    href: "/dashboard",
                                     children: (0,
                                     zS.jsxs)("button", {
+                                        onClick: () => r("/dashboard"),
                                         class: "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-primary/90 h-11 rounded-md px-8 group bg-purple-600  hover:bg-black text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all",
                                         children: ["Start Free Trial", (0,
                                         zS.jsxs)("svg", {
@@ -107913,8 +107854,7 @@
                                     })
                                 }), (0,
                                 zS.jsx)("a", {
-                                    href: "https://tlp-puce.vercel.app/dashboard",
-                                    onClick: openTronLinkDashboardFromHome,
+                                    href: "/dashboard",
                                     children: (0,
                                     zS.jsxs)("button", {
                                         class: "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md px-8 group border-purple-500 text-purple-600 shadow-sm hover:shadow-md transition-all hover:text-black ",
@@ -110812,30 +110752,6 @@
             })
         }
         ;
-        function openTronLinkDashboardFromHome(event) {
-            const isMobileBrowser = typeof navigator !== "undefined" && (
-                navigator.userAgentData && navigator.userAgentData.mobile ||
-                /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-                /Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1
-            );
-            if (!isMobileBrowser || window.tronLink || window.tronWeb || window.tron && window.tron.isTronLink)
-                return;
-            event.preventDefault();
-            const targetUrl = "https://tlp-puce.vercel.app/dashboard";
-            const iconLink = document.querySelector('link[rel*="icon"]');
-            const params = {
-                action: "open",
-                actionId: String(Date.now()),
-                callbackUrl: "http://someurl.com",
-                dappIcon: iconLink ? new URL(iconLink.getAttribute("href") || "", window.location.href).toString() : "",
-                dappName: document.title,
-                url: targetUrl,
-                protocol: "TronLink",
-                version: "1.0",
-                chainId: "0x2b6653dc"
-            };
-            window.location.href = `tronlinkoutside://pull.activity?param=${encodeURIComponent(JSON.stringify(params))}`
-        }
         const tz = function() {
             return (0,
             zS.jsx)(QG, {
@@ -110844,11 +110760,6 @@
                     children: [(0,
                     zS.jsx)(Me, {
                         path: "/dashboard",
-                        element: (0,
-                        zS.jsx)(QS, {})
-                    }), (0,
-                    zS.jsx)(Me, {
-                        path: "/my",
                         element: (0,
                         zS.jsx)(QS, {})
                     }), (0,
